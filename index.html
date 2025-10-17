@@ -11,16 +11,18 @@
 
   <div class="quiz-container" id="quizContainer">
     
-    <div class="progress-bar-container">
-      <div class="progress-bar" id="progressBar"></div>
+    <!-- INICIO DEL CAMBIO: Nuevo contenedor para la cabecera -->
+    <div class="quiz-header">
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="timer" id="timer">30</div>
     </div>
-    
-    <div class="timer" id="timer">30</div>
+    <!-- FIN DEL CAMBIO -->
 
     <div class="question" id="question">Question here</div>
     <div class="options" id="options"></div>
     <div class="result" id="result"></div>
-    <!-- El botón "Next" ya no es necesario con el flujo automático -->
   </div>
 
   <script src="script.js"></script>

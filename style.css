@@ -6,36 +6,46 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center; /* Vuelve a centrar verticalmente */
   height: 100vh;
   margin: 0;
+  padding: 1rem; /* Añade un poco de espacio por si el contenido se desborda */
+  box-sizing: border-box;
   overflow: hidden;
 }
 
 h1 {
   color: #2f5c3e;
   animation: fadeIn 1s ease-in-out;
+  margin-bottom: 1rem;
 }
 
 .quiz-container {
   background: white;
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 4px S10px rgba(0, 0, 0, 0.1);
-  width: 90%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
   max-width: 500px;
   text-align: center;
-  position: relative;
-  max-height: 85vh;
+  max-height: 90vh;
   overflow-y: auto;
   transition: all 0.3s ease-in-out;
 }
 
+/* --- NUEVO LAYOUT PARA LA CABECERA DEL QUIZ --- */
+.quiz-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Espacio entre la barra y el timer */
+  margin-bottom: 1.5rem;
+}
+
 .progress-bar-container {
+  flex-grow: 1; /* Hace que la barra ocupe el espacio disponible */
   width: 100%;
   background-color: #f0f0f0;
   border-radius: 1rem;
-  margin-bottom: 1rem;
 }
 
 .progress-bar {
@@ -47,19 +57,18 @@ h1 {
 }
 
 .timer {
-  position: absolute;
-  top: 1rem;
-  right: 1.5rem;
+  /* Se quita 'position: absolute' y las coordenadas 'top' y 'right' */
   background: #2f5c3e;
   color: white;
-  width: 35px;
-  height: 35px;
+  width: 40px; /* Un poco más grande para mejor visibilidad */
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   font-size: 1rem;
+  flex-shrink: 0; /* Evita que el timer se encoja */
 }
 
 .question {
@@ -96,7 +105,6 @@ h1 {
   min-height: 25px;
 }
 
-/* --- ESTILOS PARA LA PANTALLA FINAL --- */
 .summary-container {
   text-align: left;
   margin-top: 2rem;
@@ -133,44 +141,18 @@ h1 {
 @keyframes button-shake { 0%, 100% {transform: translateX(0);} 20%, 60% {transform: translateX(-5px);} 40%, 80% {transform: translateX(5px);} }
 .correct-answer-highlight { border: 3px solid white; transform: scale(1.05); }
 
-
 /*
 / / / / / / / / / / / / / / / / / / / / / / / / /
---- DISEÑO RESPONSIVE PARA MÓVILES ---
+--- DISEÑO RESPONSIVE PARA MÓVILES (CORREGIDO) ---
 / / / / / / / / / / / / / / / / / / / / / / / / /
 */
 @media (max-width: 700px) {
-  body {
-    justify-content: flex-start; /* Alinea el contenido arriba */
-    padding: 0;
-    overflow-y: auto; /* Permite scroll si el contenido es muy alto */
-  }
-
   h1 {
-    font-size: 1.3rem;
-    padding: 1rem 1rem 0.5rem 1rem;
-    margin: 0;
-    background: white;
-    width: 100%;
-    box-sizing: border-box; /* Asegura que el padding no añada ancho */
-    text-align: center;
+    font-size: 1.5rem;
   }
 
   .quiz-container {
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    min-height: 85vh;
-    padding: 1rem;
-    border-radius: 0;
-    box-shadow: none;
-    max-height: none; /* Quita la altura máxima */
-    box-sizing: border-box;
-  }
-
-  .timer {
-    top: 0.8rem;
-    right: 1rem;
+    padding: 1.5rem;
   }
 
   .question {
@@ -181,10 +163,5 @@ h1 {
     width: 100%;
     padding: 0.8rem;
     font-size: 1rem;
-  }
-
-  /* Ajusta el resumen final para que use todo el espacio vertical */
-  .summary-container {
-    max-height: none;
   }
 }
