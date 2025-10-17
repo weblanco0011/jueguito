@@ -1,66 +1,70 @@
-/* ESTILOS GENERALES (ESCRITORIO) */
+/* ESTILOS GENERALES Y CENTRADO ROBUSTO */
+html {
+  height: 100%;
+}
+
 body {
   font-family: 'Segoe UI', sans-serif;
   background: #e6eff5;
   color: #333;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; /* Vuelve a centrar verticalmente */
-  height: 100vh;
   margin: 0;
-  padding: 1rem; /* Añade un poco de espacio por si el contenido se desborda */
+  padding: 1rem;
   box-sizing: border-box;
-  overflow: hidden;
+
+  /* --- MÉTODO DE CENTRADO DEFINITIVO --- */
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+}
+
+main {
+  width: 100%;
+  max-width: 500px;
+  animation: fadeIn 1s ease-in-out;
 }
 
 h1 {
   color: #2f5c3e;
-  animation: fadeIn 1s ease-in-out;
+  text-align: center;
   margin-bottom: 1rem;
 }
 
 .quiz-container {
   background: white;
-  padding: 2rem;
+  padding: 1.5rem; /* Padding uniforme */
   border-radius: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 500px;
-  text-align: center;
-  max-height: 90vh;
-  overflow-y: auto;
-  transition: all 0.3s ease-in-out;
+  box-sizing: border-box;
 }
 
-/* --- NUEVO LAYOUT PARA LA CABECERA DEL QUIZ --- */
+/* --- SOLUCIÓN DEFINITIVA PARA LA SUPERPOSICIÓN DEL TIMER --- */
 .quiz-header {
   display: flex;
   align-items: center;
-  gap: 1rem; /* Espacio entre la barra y el timer */
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
 .progress-bar-container {
-  flex-grow: 1; /* Hace que la barra ocupe el espacio disponible */
-  width: 100%;
+  flex: 1; /* Ocupa el espacio sobrante */
   background-color: #f0f0f0;
   border-radius: 1rem;
 }
 
 .progress-bar {
   width: 0%;
-  height: 10px;
+  height: 12px;
   background-color: #3f8c56;
   border-radius: 1rem;
   transition: width 0.5s ease-in-out;
 }
 
 .timer {
-  /* Se quita 'position: absolute' y las coordenadas 'top' y 'right' */
+  /* Se elimina 'position: absolute'. Ahora forma parte del flujo. */
   background: #2f5c3e;
   color: white;
-  width: 40px; /* Un poco más grande para mejor visibilidad */
+  width: 40px;
   height: 40px;
   border-radius: 50%;
   display: flex;
@@ -68,13 +72,14 @@ h1 {
   justify-content: center;
   font-weight: bold;
   font-size: 1rem;
-  flex-shrink: 0; /* Evita que el timer se encoja */
+  flex-shrink: 0; /* Evita que se encoja */
 }
 
 .question {
   font-size: 1.2rem;
   margin-bottom: 1rem;
   min-height: 50px;
+  line-height: 1.5; /* Añade espacio entre líneas para mejor lectura */
 }
 
 .options button {
@@ -82,10 +87,11 @@ h1 {
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 0.5rem 1rem;
-  margin: 0.3rem;
+  padding: 0.8rem;
+  margin: 0.4rem 0; /* Espaciado vertical */
   cursor: pointer;
-  width: 80%;
+  width: 100%; /* Ocupa todo el ancho disponible */
+  font-size: 1rem;
   transition: all 0.3s;
 }
 
@@ -122,46 +128,90 @@ h1 {
 }
 
 /* --- ANIMACIONES (SIN CAMBIOS) --- */
-@keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-.correct-animation { animation: correct-pulse 0.8s ease; }
-@keyframes correct-pulse { 0% { box-shadow: 0 0 0 0 rgba(63, 140, 86, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(63, 140, 86, 0); } 100% { box-shadow: 0 0 0 0 rgba(63, 140, 86, 0); } }
-.incorrect-animation { animation: incorrect-shake 0.6s ease; }
-@keyframes incorrect-shake { 0%, 100% { transform: translateX(0); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); } 20%, 40%, 60%, 80% { transform: translateX(8px); } }
-.exit-up { animation: slideOutUp 0.5s ease-in forwards; }
-@keyframes slideOutUp { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-100%); opacity: 0; } }
-.enter-from-down { animation: slideInDown 0.5s ease-out forwards; }
-@keyframes slideInDown { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-.exit-left { animation: slideOutLeft 0.5s ease-in forwards; }
-@keyframes slideOutLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
-.enter-from-right { animation: slideInRight 0.5s ease-out forwards; }
-@keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-.tada-animation { animation: tada 1s ease; }
-@keyframes tada { 0% {transform: scale(1);} 10%, 20% {transform: scale(0.9) rotate(-3deg);} 30%, 50%, 70%, 90% {transform: scale(1.1) rotate(3deg);} 40%, 60%, 80% {transform: scale(1.1) rotate(-3deg);} 100% {transform: scale(1) rotate(0);} }
-.button-shake-animation { animation: button-shake 0.5s ease; }
-@keyframes button-shake { 0%, 100% {transform: translateX(0);} 20%, 60% {transform: translateX(-5px);} 40%, 80% {transform: translateX(5px);} }
-.correct-answer-highlight { border: 3px solid white; transform: scale(1.05); }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-/*
-/ / / / / / / / / / / / / / / / / / / / / / / / /
---- DISEÑO RESPONSIVE PARA MÓVILES (CORREGIDO) ---
-/ / / / / / / / / / / / / / / / / / / / / / / / /
-*/
-@media (max-width: 700px) {
-  h1 {
-    font-size: 1.5rem;
-  }
+.correct-animation {
+  animation: correct-pulse 0.8s ease;
+}
 
-  .quiz-container {
-    padding: 1.5rem;
-  }
+@keyframes correct-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(63, 140, 86, 0.7); }
+  70% { box-shadow: 0 0 0 20px rgba(63, 140, 86, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(63, 140, 86, 0); }
+}
 
-  .question {
-    font-size: 1.1rem;
-  }
+.incorrect-animation {
+  animation: incorrect-shake 0.6s ease;
+}
 
-  .options button {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 1rem;
-  }
+@keyframes incorrect-shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+  20%, 40%, 60%, 80% { transform: translateX(8px); }
+}
+
+.exit-up {
+  animation: slideOutUp 0.5s ease-in forwards;
+}
+
+@keyframes slideOutUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-100%); opacity: 0; }
+}
+
+.enter-from-down {
+  animation: slideInDown 0.5s ease-out forwards;
+}
+
+@keyframes slideInDown {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.exit-left {
+  animation: slideOutLeft 0.5s ease-in forwards;
+}
+
+@keyframes slideOutLeft {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-100%); opacity: 0; }
+}
+
+.enter-from-right {
+  animation: slideInRight 0.5s ease-out forwards;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.tada-animation {
+  animation: tada 1s ease;
+}
+
+@keyframes tada {
+  0% { transform: scale(1); }
+  10%, 20% { transform: scale(0.9) rotate(-3deg); }
+  30%, 50%, 70%, 90% { transform: scale(1.1) rotate(3deg); }
+  40%, 60%, 80% { transform: scale(1.1) rotate(-3deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+.button-shake-animation {
+  animation: button-shake 0.5s ease;
+}
+
+@keyframes button-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+.correct-answer-highlight {
+  border: 3px solid white;
+  transform: scale(1.05);
 }
